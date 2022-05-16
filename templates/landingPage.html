@@ -1,29 +1,69 @@
 <html>
   <head>
+    <title>Search Images</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="author" content="colorlib.com">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">  </head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/LP.css') }}"> 
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+    
+
+
+  
+  </head>
   <body>
+      <div>
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+          messages %} {% for category, message in messages %} {% if category ==
+          'error' %}
+          <div class="alert alert-danger alter-dismissable fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% else %}
+          <div class="alert alert-success alter-dismissable fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endif %} {% endfor %} {% endif %} {% endwith %}
+      </div>
     <div class="s01">
-      <form>
+
+      
+      <form method = "POST"> 
+       
         <fieldset>
           <legend>Search Your Image</legend>
         </fieldset>
+
         <div class="inner-form">
           <div class="input-field first-wrap">
-            <input id="search" type="text" placeholder="What are you looking for?" />
+            <input id="search" type="search" placeholder="What are you looking for?" name="searchTerm"/>
           </div>
-          <div class="input-field second-wrap">
-            <input id="location" type="text" placeholder="location" />
-          </div>
+
           <div class="input-field third-wrap">
-            <button class="btn-search" type="button">Search</button>
+            <button class="btn-search" type="submit">Search</button>
           </div>
+
         </div>
       </form>
+
     </div>
   </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
