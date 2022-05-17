@@ -11,13 +11,13 @@
 
 <body>
    <div>
-       <legend>
-           Search Results for 
-       </legend>
+       <h1>
+           Search Results for {{searchTerm}} 
+       </h1>
    </div>
 
    <div>
-       <img src='https://images.unsplash.com/photo-1547407139-3c921a66005c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVza3l8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60' 
+       <img src={{displayImage}} 
        alt="Husky" 
        width = "500"
        height = "500"
@@ -29,18 +29,46 @@
     <br> 
     <br> 
     <div class="btn-group">
-        <button class="btn-search" type="submit">Download</button>
 
-        <button class="btn-search" type="submit">Sepia</button>
+        <form method = "POST">
+            <button class="btn-search" type="submit">Sepia</button>
+        </form>
     
-        <button class="btn-search" type="submit">Gamma</button>
+        <form>
+            <button class="btn-search" type="submit">Gamma</button>
+        </form>
     
-        <button class="btn-search" type="submit">Negative</button>
-    
-        <button class="btn-search" type="submit">Gray Scale</button>
+        <form>
+            <button class="btn-search" type="submit">Negative</button>
+        </form> 
+ 
+        <form>
+            <button class="btn-search" type="submit">Gray Scale</button>
+        </form>
 
-        <button class="btn-search" type="submit">return</button>
       </div>
+
+    <div class="btn-group">
+
+        <form>
+            <button class="btn-search" type="submit">Download</button>
+        </form>
+
+        <form>
+            <button class="btn-search" type="submit">next</button>
+        </form>
+    
+        <form>
+            <button class="btn-search" type="submit">back</button>
+        </form>
+
+        <form>
+            <button class="btn-search" type="submit">return</button>
+        </form>
+
+      </div>
+
+    
 
 
   

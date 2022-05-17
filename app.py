@@ -1,5 +1,9 @@
-from flask import Flask, render_template, request, redirect, flash, url_for
-
+from flask import Flask, render_template, request, redirect, flash, url_for, session
+import json
+import requests
+from PIL import Image 
+from urllib.request import urlopen
+import urllib.parse
 
 def create_app():
     app = Flask(__name__)
@@ -20,10 +24,11 @@ searchTerm = ''
 @app.route('/', methods=['GET', 'POST'])
 def landingPage():
     
+    
     if request.method == 'POST':
         searchTerm = request.form.get('searchTerm')
         
-        if len(searchTerm) > 8:
+        if len(searchTerm) > 16:
             flash('Invalid Search', category='error')
             
         elif len(searchTerm) < 2:
@@ -31,16 +36,41 @@ def landingPage():
         else:
             flash('Searching Now', category='success')
             
-            return redirect(url_for('search'))
+            return redirect(url_for('search', searchTerm = searchTerm))
     
     return render_template('landingPage.html')
 
-@app.route('/searchResults', methods=['GET', 'POST'])
-def search():
+@app.route('/searchResults/<searchTerm>', methods=['GET', 'POST'])
+def search(searchTerm):
+    
+    APIurl = 'https://api.unsplash.com/search/photos?query=' + searchTerm + '&client_id=' + accessKey
+    
+    response = urlopen(APIurl)
+    
+    #contains total response from unsplash API
+    jsonData = json.loads(response.read())
+    
+    unsplashSearchResults = jsonData['results']
+    
+    pictureUrls = []
+    
+    for i in unsplashSearchResults:
+        pictureUrls.append(i['urls']['regular'])
     
     
+    displayImage = pictureUrls[0]
     
-    return render_template('searchResultsPage.html')
+
+
+    return render_template('searchResultsPage.html', searchTerm = searchTerm, displayImage = displayImage)
+
+
+
+@app.route('searchResults/sepia/<searchTerm>/<displayImage>')
+def sepia(searchTerm, displayImage):
+    return 0
+    
+
 
 app.run(debug=True) 
 
