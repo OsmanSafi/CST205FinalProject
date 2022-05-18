@@ -1,3 +1,9 @@
+from PIL import Image
+import io
+import base64
+from io import BytesIO
+
+
 def convertSepia(red, green, blue, alpha):    
     Red = (0.7 * red) + (0.4 * green) + (0.2 * blue)
     Green = (0.6 * red) + (0.3 * green) + (0.2 * blue)
@@ -115,6 +121,7 @@ def convertGrayscale(red, green, blue, alpha):
     return int(Red), int(Green), int(Blue), alpha
 
 def grayscale(image):
+    
     width, height = image.size
     newimg = Image.new(mode='RGBA', size=(width, height))
     pixels = newimg.load()
@@ -124,3 +131,10 @@ def grayscale(image):
             pix = image.getpixel( (i, j) )
             pixels[i, j] = convertGrayscale(pix[0], pix[1], pix[2], 255)
     return newimg
+
+def pil2datauri(img):
+    #converts PIL image to datauri
+    data = BytesIO()
+    img.save(data, "png")
+    data64 = base64.b64encode(data.getvalue())
+    return u'data:img/jpeg;base64,'+data64.decode('utf-8')
